@@ -1,9 +1,18 @@
 import MeetupList from '../components/meetups/MeetupList'
 
-function meetup() {
+function Homepage(props) {
   return(
     <MeetupList meetups={}/>
   )
 
 }
-export default meetup
+
+export async function getStaticProps(){
+  return{
+    props:{
+      
+    }
+  }
+}
+
+export default Homepage;
