@@ -1,18 +1,31 @@
 import MeetupList from '../components/meetups/MeetupList'
+import Head from 'next/head';
+import { MongoClient } from 'mongodb';
+import {Fragment} from 'react'
 
 function Homepage(props) {
   return(
-    <MeetupList meetups={props.meetups}/>
+    <Fragment>
+      <Head>
+        <title>My Meetups</title>
+        <meta
+          name='description'
+          content='Browse a huge list of highly active React meetups!'
+        />
+      </Head>
+      <MeetupList meetups={props.meetups}/>
+    </Fragment>
+    
   )
 
 }
 
 export async function getStaticProps(){
-  const client = await MongoClient.connect('mongodb+srv://meetups:9951122864@cluster0.p8gnz.mongodb.net/meetups?retryWrites=true&w=majority')
+  const client = await MongoClient.connect('mongodb+srv://meetup:meetups@cluster0.5bqm1.mongodb.net/meetup?retryWrites=true&w=majority')
     const db = client.db()
 
-    const collections = db.collection('meetups')
-    const MeetupList = collections.find().toArray()
+    const collections = db.collection('meetup')
+    const MeetupList = await collections.find().toArray()
 
     client.close()
   return{
