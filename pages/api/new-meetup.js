@@ -2,13 +2,13 @@ import { MongoClient } from "mongodb"
 
 async function handler(req,res){
     if(req.method==='POST'){
-        const data = req.body
     
+    const data = req.body
     const client = await MongoClient.connect('mongodb+srv://meetup:meetups@cluster0.5bqm1.mongodb.net/meetup?retryWrites=true&w=majority')
     const db = client.db()
 
     const collections = db.collection('meetup')
-    const results = collections.insertOne(data)
+    const results = await collections.insertOne(data)
     console.log(results)
 
     client.close()
